@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "817149319478",
+    "project_id": "lab3-login-page",
+    "storage_bucket": "lab3-login-page.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817149319478:android:2ab65c1519cc7eef273b97",
+        "android_client_info": {
+          "package_name": "com.example.lab3_login_page"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr4ZnChic-zBL1yJgQdcjatP1LHhJ6Do0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
