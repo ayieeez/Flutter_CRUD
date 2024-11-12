@@ -17,6 +17,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final FocusNode _focusNode = FocusNode();
 
   bool _isStudent = false;
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
 
   @override
   void dispose() {
@@ -219,7 +221,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _passwordController,
-                          obscureText: true,
+                          obscureText: !_isPasswordVisible,
                           decoration: InputDecoration(
                             labelText: 'Password',
                             labelStyle: TextStyle(color: Colors.grey[600]),
@@ -236,6 +238,19 @@ class _SignUpPageState extends State<SignUpPage> {
                                 color: Colors.grey[400]!,
                               ),
                             ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.grey[600],
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible = !_isPasswordVisible;
+                                });
+                              },
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -247,7 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _confirmPasswordController,
-                          obscureText: true,
+                          obscureText: !_isConfirmPasswordVisible,
                           decoration: InputDecoration(
                             labelText: 'Confirm Password',
                             labelStyle: TextStyle(color: Colors.grey[600]),
@@ -263,6 +278,20 @@ class _SignUpPageState extends State<SignUpPage> {
                               borderSide: BorderSide(
                                 color: Colors.grey[400]!,
                               ),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isConfirmPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.grey[600],
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isConfirmPasswordVisible =
+                                      !_isConfirmPasswordVisible;
+                                });
+                              },
                             ),
                           ),
                           validator: (value) {
