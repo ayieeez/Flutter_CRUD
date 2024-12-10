@@ -12,7 +12,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
     with SingleTickerProviderStateMixin {
   final DatabaseReference _bookingsRef =
       FirebaseDatabase.instance.ref().child('bookings');
-<<<<<<< HEAD
   final DatabaseReference _deletedBookingsRef =
       FirebaseDatabase.instance.ref().child('deleted_bookings');
 
@@ -21,10 +20,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
   List<String> selectedBookings = [];
   bool isSelectAllBookingHistory = false;
   bool isSelectAllDeletedBookings = false;
-=======
-
-  List<Map<String, dynamic>> bookings = [];
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
 
   late TabController _tabController;
 
@@ -43,7 +38,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
             'event_description': value['event_description'],
             'event_type': value['event_type'],
             'equipment': value['equipment'],
-<<<<<<< HEAD
             'status': value['status'],
           };
         }).toList();
@@ -67,9 +61,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
             'event_type': value['event_type'],
             'equipment': value['equipment'],
             'status': value['status'],
-=======
-            'status': value['status'], // Add status field
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
           };
         }).toList();
       });
@@ -77,20 +68,11 @@ class _AdminLandingPageState extends State<AdminLandingPage>
   }
 
   Future<void> _updateBookingStatus(String bookingId, String newStatus) async {
-<<<<<<< HEAD
     await _bookingsRef.child(bookingId).update({'status': newStatus});
-=======
-    await _bookingsRef.child(bookingId).update({
-      'status': newStatus,
-    });
-
-    // Refresh the bookings list after the status update
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
     await _fetchBookings();
   }
 
   Future<void> _deleteBooking(String bookingId) async {
-<<<<<<< HEAD
     final booking =
         bookings.firstWhere((booking) => booking['id'] == bookingId);
 
@@ -105,25 +87,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Booking deleted temporarily')),
     );
-=======
-    await _bookingsRef.child(bookingId).remove();
-    setState(() {
-      bookings.removeWhere((booking) => booking['id'] == bookingId);
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchBookings();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
   }
 
   Future<void> _deleteSelectedBookings() async {
@@ -239,12 +202,7 @@ class _AdminLandingPageState extends State<AdminLandingPage>
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-<<<<<<< HEAD
               Navigator.of(context).pushReplacementNamed('/');
-=======
-              Navigator.of(context).pushReplacementNamed(
-                  '/'); // Assuming '/' is your main page route
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
             },
           ),
         ],
@@ -253,10 +211,7 @@ class _AdminLandingPageState extends State<AdminLandingPage>
           tabs: const [
             Tab(text: 'Booking History'),
             Tab(text: 'Pending Approvals'),
-<<<<<<< HEAD
             Tab(text: 'Recently Deleted'),
-=======
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
           ],
         ),
       ),
@@ -274,7 +229,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(height: 10),
-<<<<<<< HEAD
                 Row(
                   children: [
                     Checkbox(
@@ -293,8 +247,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                     ),
                   ],
                 ),
-=======
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
                 bookings.isEmpty
                     ? const Center(child: Text('No bookings available.'))
                     : Column(
@@ -328,7 +280,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                                   ),
                                 ],
                               ),
-<<<<<<< HEAD
                               trailing: Checkbox(
                                 value: selectedBookings.contains(booking['id']),
                                 onChanged: (_) {
@@ -342,64 +293,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                                   });
                                 },
                               ),
-=======
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    booking['status'] == 'Approved'
-                                        ? Icons.check_circle
-                                        : booking['status'] == 'Rejected'
-                                            ? Icons.cancel
-                                            : Icons.pending,
-                                    color: booking['status'] == 'Approved'
-                                        ? Colors.green
-                                        : booking['status'] == 'Rejected'
-                                            ? Colors.red
-                                            : Colors.orange,
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    onPressed: () {
-                                      _deleteBooking(booking['id']);
-                                    },
-                                  ),
-                                ],
-                              ),
-                              onTap: () {
-                                if (booking['status'] == 'Pending') {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Update Status'),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                _updateBookingStatus(
-                                                    booking['id'], 'Approved');
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('Approve'),
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                _updateBookingStatus(
-                                                    booking['id'], 'Rejected');
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('Reject'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }
-                              },
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
                             ),
                           );
                         }).toList(),
@@ -407,13 +300,7 @@ class _AdminLandingPageState extends State<AdminLandingPage>
               ],
             ),
           ),
-<<<<<<< HEAD
           // Tab 2: Pending Approvals
-=======
-
-          // Tab 2: Pending Approvals (Optional)
-          // This tab can show only the pending bookings
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
           SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -424,7 +311,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(height: 10),
-<<<<<<< HEAD
                 Column(
                   children: bookings
                       .where((booking) => booking['status'] == 'Pending')
@@ -514,16 +400,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                     ? const Center(child: Text('No recently deleted bookings.'))
                     : Column(
                         children: deletedBookings.map((booking) {
-=======
-                bookings
-                        .where((booking) => booking['status'] == 'Pending')
-                        .isEmpty
-                    ? const Center(child: Text('No pending approvals.'))
-                    : Column(
-                        children: bookings
-                            .where((booking) => booking['status'] == 'Pending')
-                            .map((booking) {
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
                           return Card(
                             margin: const EdgeInsets.only(bottom: 10),
                             elevation: 3,
@@ -542,10 +418,7 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                                   Text(
                                       'Applicant: ${booking['applicant_name']}'),
                                   Text('Event Type: ${booking['event_type']}'),
-<<<<<<< HEAD
                                   Text('Status: ${booking['status']}'),
-=======
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
                                   const SizedBox(height: 5),
                                   Text(
                                     'Equipment: ' +
@@ -556,7 +429,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                                   ),
                                 ],
                               ),
-<<<<<<< HEAD
                               trailing: Checkbox(
                                 value: selectedBookings.contains(booking['id']),
                                 onChanged: (_) {
@@ -569,11 +441,6 @@ class _AdminLandingPageState extends State<AdminLandingPage>
                                     }
                                   });
                                 },
-=======
-                              trailing: const Icon(
-                                Icons.pending,
-                                color: Colors.orange,
->>>>>>> a66b96089096d6b0c998bee04db4efef528fa812
                               ),
                             ),
                           );
