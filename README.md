@@ -2,7 +2,7 @@
 
 This project is a Flutter-based CRUD (Create, Read, Update, Delete) application integrated with Firebase Realtime Database for backend services. The app allows users to manage equipment bookings with the ability to add, view, update, and delete bookings.
 
-## Features
+## 2410-ICT602 Lab Work 4,5,6,7 - Create, Read, Update, Deleted (CRUD)
 
 - Firebase Authentication for user login
 - Firebase Realtime Database for data storage
